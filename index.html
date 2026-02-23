@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TEST 🔥</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+/* ── THÈMES ─────────────────────────────── */
+:root{
+–bg:#070710;–bg2:#10102a;–bg3:#181835;
+–border:rgba(255,255,255,0.08);
+–pk:#ff2d78;–pu:#7c3aed;–cy:#06d6e0;
+–go:#fbbf24;–gr:#10b981;–rd:#ef4444;–or:#f97316;
+–tx:#f0efff;–mu:#8892a4;
+color-scheme:dark
+}
+:root.light{
+–bg:#f2f2fa;–bg2:#ffffff;–bg3:#e6e6f5;
+–border:rgba(0,0,0,0.09);
+–pk:#d81567;–pu:#5b21b6;–cy:#0369a1;
+–go:#b45309;–gr:#047857;–rd:#b91c1c;–or:#c2410c;
+–tx:#0d0d1f;–mu:#52525b;
+color-scheme:light
+}
+
+html{background:var(–bg)!important;color:var(–tx)!important}
+html,body{min-height:100vh;background:var(–bg)!important;color:var(–tx)!important;font-family:‘DM Sans’,sans-serif;overflow-x:hidden}
+
+/* ── CANVAS BG ───────────────────────────── */
+#bgc{position:fixed;inset:0;z-index:0;pointer-events:none;width:100vw!important;height:100vh!important}
+
+/* ── APP WRAPPER ─────────────────────────── */
+.app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 16px 60px}
+
+/* ── SCREENS ─────────────────────────────── */
+.sc{display:none;width:100%;max-width:440px;flex-direction:column;align-items:center}
+.sc.on{display:flex}
+
+/* ── TYPO ────────────────────────────────── */
+.huge{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(56px,16vw,96px);line-height:.88;letter-spacing:2px;background:linear-gradient(135deg,var(–pk),var(–pu) 55%,var(–cy));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center}
+.ttl{font-family:‘Bebas Neue’,sans-serif;font-size:26px;letter-spacing:2px}
+.lbl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(–mu);margin-bottom:6px;display:block}
+.sm{font-size:13px}.xs{font-size:11px}.bold{font-weight:700}.mono{font-family:‘Space Mono’,monospace}
+.muted{color:var(–mu)}.gpk{color:var(–pk)}.gcy{color:var(–cy)}.ggo{color:var(–go)}.ggr{color:var(–gr)}
+.tc{text-align:center}
+
+/* ── CARD ────────────────────────────────── */
+.card{background:var(–bg2);border:1px solid var(–border);border-radius:18px;padding:26px 22px;width:100%;position:relative;overflow:hidden}
+.card::before{content:’’;position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent)}
+:root.light .card::before{background:linear-gradient(90deg,transparent,rgba(0,0,0,0.05),transparent)}
+
+/* ── BUTTONS ─────────────────────────────── */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:15px 22px;border-radius:12px;border:none;font-family:‘DM Sans’,sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:transform .15s,box-shadow .2s;width:100%;position:relative;overflow:hidden;letter-spacing:.3px}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.bp{background:linear-gradient(135deg,var(–pk),var(–pu));color:#fff;box-shadow:0 4px 20px rgba(255,45,120,.3)}
+.bp:hover{box-shadow:0 6px 30px rgba(255,45,120,.5)}
+.bs{background:linear-gradient(135deg,var(–pu),var(–cy));color:#fff;box-shadow:0 4px 20px rgba(124,58,237,.3)}
+.bg_{background:var(–bg3);color:var(–mu);border:1px solid var(–border)}
+.bg_:hover{color:var(–tx)}
+.bsm{padding:9px 16px;font-size:13px;border-radius:10px}
+
+/* ── INPUTS ──────────────────────────────── */
+.inp{width:100%;padding:13px 15px;background:var(–bg3);border:1px solid var(–border);border-radius:12px;color:var(–tx);font-family:‘DM Sans’,sans-serif;font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s}
+.inp:focus{border-color:var(–pk);box-shadow:0 0 0 3px rgba(255,45,120,.12)}
+.inp::placeholder{color:var(–mu)}
+.inp-code{text-align:center;font-family:‘Space Mono’,monospace;font-size:30px;font-weight:700;letter-spacing:12px}
+.ta{width:100%;min-height:88px;padding:13px 15px;background:var(–bg3);border:1px solid var(–border);border-radius:12px;color:var(–tx);font-family:‘DM Sans’,sans-serif;font-size:15px;outline:none;resize:none;transition:border-color .2s;line-height:1.5}
+.ta:focus{border-color:var(–pu);box-shadow:0 0 0 3px rgba(124,58,237,.12)}
+.ta::placeholder{color:var(–mu)}
+.sel{width:100%;padding:13px 15px;background:var(–bg3);border:1px solid var(–border);border-radius:12px;color:var(–tx);font-family:‘DM Sans’,sans-serif;font-size:15px;outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%238892a4’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’/%3E%3C/svg%3E”);background-repeat:no-repeat;background-position:right 14px center}
+.sel option{background:var(–bg2)}
+
+/* ── CAT GRID ────────────────────────────── */
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%}
+.ctile{padding:14px 10px;border-radius:13px;border:1.5px solid var(–border);background:var(–bg3);cursor:pointer;text-align:center;transition:all .18s;user-select:none;position:relative;overflow:hidden}
+.ctile:hover{transform:translateY(-1px)}
+.ctile.on{border-color:currentColor}
+.ctile.on::after{content:‘✓’;position:absolute;top:6px;right:8px;font-size:11px;font-weight:bold}
+.ctile .bi{font-size:24px;display:block;margin-bottom:3px}
+.ctile .cn{font-size:12px;font-weight:700;display:block}
+.ctile .ck{font-size:10px;font-family:‘Space Mono’;opacity:.5}
+.cc{color:#93c5fd}.cco{color:#f9a8d4}.cup{color:#c4b5fd}.ch{color:var(–or)}
+
+/* ── CODE BOX ────────────────────────────── */
+.codebox{background:var(–bg3);border:1px solid var(–border);border-radius:15px;padding:18px 22px;text-align:center;position:relative;overflow:hidden}
+.codebox::before{content:’’;position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,45,120,.04),transparent 60%);pointer-events:none}
+.codenum{font-family:‘Bebas Neue’,sans-serif;font-size:56px;letter-spacing:14px;background:linear-gradient(135deg,var(–cy),var(–pk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1}
+.copyhint{font-size:11px;color:var(–mu);cursor:pointer;margin-top:5px;transition:color .2s}
+.copyhint:hover{color:var(–cy)}
+
+/* ── PLAYER ROW ──────────────────────────── */
+.plist{display:flex;flex-direction:column;gap:7px;width:100%}
+.prow{display:flex;align-items:center;gap:11px;padding:11px 14px;background:var(–bg3);border-radius:11px;border:1px solid var(–border);animation:slideIn .3s ease-out}
+.prow.me{border-color:rgba(255,45,120,.3)}
+.pav{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.pnm{font-weight:700;font-size:14px;flex:1}
+.pbdg{font-size:10px;padding:3px 8px;border-radius:20px;font-family:‘Space Mono’}
+.bhost{background:rgba(251,191,36,.15);color:var(–go)}
+.bread{background:rgba(16,185,129,.15);color:var(–gr)}
+.bme{background:rgba(255,45,120,.15);color:var(–pk)}
+.empty-slot{display:flex;align-items:center;gap:9px;padding:11px 14px;border:1px dashed rgba(255,255,255,.07);border-radius:11px;color:var(–mu);font-size:13px}
+:root.light .empty-slot{border-color:rgba(0,0,0,.1)}
+
+/* ── GAME TOPBAR ─────────────────────────── */
+.gtop{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:520px;margin-bottom:14px;padding:0 2px}
+.turninfo{text-align:center}
+.turnlbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(–mu)}
+.turnnm{font-family:‘Bebas Neue’,sans-serif;font-size:22px;letter-spacing:1px;background:linear-gradient(135deg,var(–pk),var(–pu));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.rpill{font-family:‘Space Mono’,monospace;font-size:11px;color:var(–mu);background:var(–bg2);border:1px solid var(–border);border-radius:20px;padding:5px 11px}
+
+/* ── PROGRESS ────────────────────────────── */
+.pwrap{width:100%;max-width:520px;margin-bottom:18px}
+.ptrack{height:3px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden}
+.pbar{height:100%;background:linear-gradient(90deg,var(–pk),var(–pu),var(–cy));border-radius:4px;transition:width .6s ease}
+:root.light .ptrack{background:rgba(0,0,0,.08)}
+
+/* ── QUESTION CARD ───────────────────────── */
+.qcard{background:var(–bg2);border:1px solid var(–border);border-radius:20px;padding:26px 22px;width:100%;max-width:520px;position:relative;overflow:hidden;animation:cardPop .42s cubic-bezier(.34,1.56,.64,1)}
+.qcard::before{content:’’;position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);pointer-events:none}
+:root.light .qcard::before{background:linear-gradient(90deg,transparent,rgba(0,0,0,.04),transparent)}
+.qcard.ta_{border-top:3px solid var(–or)}
+.qcard.tv{border-top:3px solid var(–cy)}
+.qcard.hot{box-shadow:0 0 50px rgba(255,45,120,.12)}
+
+.qtag{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+.tga{background:rgba(249,115,22,.12);color:var(–or);border:1px solid rgba(249,115,22,.25)}
+.tgv{background:rgba(6,214,224,.12);color:var(–cy);border:1px solid rgba(6,214,224,.25)}
+.catc{float:right;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(–mu);background:var(–bg3);border:1px solid var(–border);border-radius:6px;padding:3px 7px}
+.qtxt{font-family:‘DM Sans’,sans-serif;font-weight:700;font-size:clamp(17px,4.5vw,22px);line-height:1.45;margin-bottom:22px;min-height:56px;clear:both}
+
+/* ── CHOOSE GRID ─────────────────────────── */
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:4px}
+.bact{background:rgba(249,115,22,.1);border:1.5px solid rgba(249,115,22,.4);color:var(–or);font-size:16px;padding:20px 14px;border-radius:15px;flex-direction:column;gap:3px;transition:all .2s}
+.bact:hover{background:rgba(249,115,22,.18);box-shadow:0 8px 28px rgba(249,115,22,.2);transform:translateY(-2px)}
+.bvrt{background:rgba(6,214,224,.1);border:1.5px solid rgba(6,214,224,.4);color:var(–cy);font-size:16px;padding:20px 14px;border-radius:15px;flex-direction:column;gap:3px;transition:all .2s}
+.bvrt:hover{background:rgba(6,214,224,.18);box-shadow:0 8px 28px rgba(6,214,224,.2);transform:translateY(-2px)}
+.cico{font-size:28px}.clbl{font-family:‘Bebas Neue’;font-size:20px;letter-spacing:1px}.csub{font-size:10px;font-family:‘Space Mono’;opacity:.6;font-weight:400}
+
+/* ── DOTS ────────────────────────────────── */
+.dots{display:flex;gap:6px;justify-content:center;margin:10px 0}
+.dot{width:9px;height:9px;border-radius:50%;animation:dotB 1.2s ease-in-out infinite}
+.dot:nth-child(1){background:var(–pk)}.dot:nth-child(2){background:var(–pu);animation-delay:.15s}.dot:nth-child(3){background:var(–cy);animation-delay:.3s}
+
+/* ── REVEAL ──────────────────────────────── */
+.rwrap{width:100%;max-width:520px}
+.rans{background:var(–bg2);border:1px solid var(–border);border-radius:13px;padding:15px 16px;margin-bottom:9px;border-left:3px solid var(–pk);animation:slideIn .3s ease-out}
+.rwho{font-size:12px;font-weight:700;margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.rtxt{font-size:15px;line-height:1.5}
+.remp{color:var(–mu);font-style:italic;font-size:13px}
+
+/* ── END ─────────────────────────────────── */
+.podrow{display:flex;align-items:center;gap:11px;padding:13px 16px;background:var(–bg2);border-radius:13px;border:1px solid var(–border)}
+.podrank{font-family:‘Bebas Neue’;font-size:24px;width:28px;text-align:center}
+
+/* ── TOAST ───────────────────────────────── */
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(120px);background:var(–bg2);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 20px;font-weight:700;font-size:14px;z-index:9999;transition:transform .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;max-width:90vw;text-align:center;pointer-events:none;color:var(–tx)}
+#toast.up{transform:translateX(-50%) translateY(0)}
+#toast.ok{border-color:var(–gr)}#toast.er{border-color:var(–rd)}#toast.if{border-color:var(–pu)}
+
+/* ── TOP BUTTONS ─────────────────────────── */
+.topbtn{position:fixed;z-index:300;background:var(–bg2);border:1px solid var(–border);border-radius:50px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:‘DM Sans’,sans-serif;color:var(–mu);display:none;align-items:center;gap:5px;transition:all .2s;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.topbtn:hover{color:var(–tx);border-color:var(–pk)}
+.topbtn.vis{display:flex}
+#back-btn{top:14px;left:14px}
+#theme-btn{top:14px;right:14px;display:flex}
+
+/* ── SPINNER ─────────────────────────────── */
+.spin{width:42px;height:42px;border:3px solid rgba(255,255,255,.07);border-top-color:var(–pk);border-radius:50%;animation:rot .8s linear infinite}
+:root.light .spin{border-color:rgba(0,0,0,.1);border-top-color:var(–pk)}
+
+/* ── UTILS ───────────────────────────────── */
+.col{display:flex;flex-direction:column;gap:11px;width:100%}
+.row{display:flex;gap:10px;align-items:center}
+.sep{width:100%;height:1px;background:var(–border);margin:14px 0}
+.w100{width:100%}
+.mt4{margin-top:4px}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}.mt24{margin-top:24px}
+.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mb16{margin-bottom:16px}.mb20{margin-bottom:20px}
+
+/* ── ANIMS ───────────────────────────────── */
+@keyframes cardPop{from{opacity:0;transform:scale(.87) translateY(14px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dotB{0%,80%,100%{transform:scale(1);opacity:.4}40%{transform:scale(1.5);opacity:1}}
+@keyframes rot{to{transform:rotate(360deg)}}
+@keyframes confY{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+.shk{animation:shk .35s ease}
+@keyframes shk{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(4px)}}
+
+@media(max-width:380px){.qtxt{font-size:16px}.card,.qcard{padding:20px 16px}}
+</style>
+
+</head>
+<body>
+
+<canvas id="bgc"></canvas>
+
+<button class="topbtn" id="back-btn" onclick="goBack()">← Quitter</button>
+<button class="topbtn" id="theme-btn" onclick="toggleTheme()">
+<span id="ticon">🌙</span><span id="tlbl">Sombre</span>
+</button>
+
+<div id="toast"></div>
+
+<div class="app">
+
+  <!-- HOME -->
+
+  <div id="s-home" class="sc on">
+    <div class="mb20" style="animation:cardPop .5s ease-out">
+      <div style="text-align:center;font-size:11px;letter-spacing:4px;color:var(--pk);margin-bottom:8px;text-transform:uppercase">🔥 Le jeu de soirée</div>
+      <div class="huge">TEST</div>
+      <div style="font-family:'Bebas Neue';font-size:20px;letter-spacing:3px;text-align:center;color:var(--mu);margin-top:4px">Action ou Vérité</div>
+    </div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:26px">
+      <span style="padding:4px 11px;border-radius:20px;background:rgba(249,115,22,.1);color:var(--or);font-size:11px;border:1px solid rgba(249,115,22,.2)">💪 Action</span>
+      <span style="padding:4px 11px;border-radius:20px;background:rgba(6,214,224,.1);color:var(--cy);font-size:11px;border:1px solid rgba(6,214,224,.2)">💬 Vérité</span>
+      <span style="padding:4px 11px;border-radius:20px;background:rgba(255,45,120,.1);color:var(--pk);font-size:11px;border:1px solid rgba(255,45,120,.2)">🔥 Hot</span>
+    </div>
+    <div class="col" style="max-width:360px">
+      <button class="btn bp" onclick="go('s-create')">🎯 Créer une partie</button>
+      <button class="btn bs" onclick="go('s-join')">🚪 Rejoindre une partie</button>
+    </div>
+    <div class="mt16 xs muted tc">Multijoueur en ligne • 2–8 joueurs • 500+ questions</div>
+  </div>
+
+  <!-- CREATE -->
+
+  <div id="s-create" class="sc">
+    <div class="card w100" style="max-width:420px">
+      <div class="ttl gpk mb16">Créer une partie 🎯</div>
+      <div class="col">
+        <div>
+          <span class="lbl">Ton prénom</span>
+          <input class="inp" id="c-name" type="text" placeholder="Ex: Sophie" maxlength="16" autocomplete="off">
+        </div>
+        <div>
+          <span class="lbl">Nombre de rounds</span>
+          <select class="sel" id="c-rounds">
+            <option value="10">10 rounds — rapide 🏃</option>
+            <option value="20" selected>20 rounds — normal ⚡</option>
+            <option value="30">30 rounds — long 🎪</option>
+            <option value="50">50 rounds — marathon 🏟️</option>
+          </select>
+        </div>
+        <div>
+          <span class="lbl">Catégories</span>
+          <div class="cat-grid">
+            <div class="ctile cc on" data-cat="classique" onclick="toggleCat(this)"><span class="bi">😂</span><span class="cn">Classique</span><span class="ck">140 questions</span></div>
+            <div class="ctile cco on" data-cat="coquin" onclick="toggleCat(this)"><span class="bi">😏</span><span class="cn">Coquin</span><span class="ck">120 questions</span></div>
+            <div class="ctile cup" data-cat="couple" onclick="toggleCat(this)"><span class="bi">💑</span><span class="cn">Couple</span><span class="ck">110 questions</span></div>
+            <div class="ctile ch" data-cat="hot" onclick="toggleCat(this)"><span class="bi">🔥</span><span class="cn">Hot 18+</span><span class="ck">130 questions</span></div>
+          </div>
+        </div>
+        <button class="btn bp" onclick="createGame()">Créer la partie ✨</button>
+        <button class="btn bg_ bsm" onclick="go('s-home')">← Retour</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JOIN -->
+
+  <div id="s-join" class="sc">
+    <div class="card w100" style="max-width:380px">
+      <div class="ttl gcy mb16">Rejoindre 🚪</div>
+      <div class="col">
+        <div>
+          <span class="lbl">Ton prénom</span>
+          <input class="inp" id="j-name" type="text" placeholder="Ex: Alex" maxlength="16" autocomplete="off">
+        </div>
+        <div>
+          <span class="lbl">Code de la partie</span>
+          <input class="inp inp-code" id="j-code" type="text" placeholder="XXXX" maxlength="4"
+            oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')"
+            onkeydown="if(event.key==='Enter')joinGame()">
+        </div>
+        <button class="btn bs" onclick="joinGame()">Rejoindre 🚀</button>
+        <button class="btn bg_ bsm" onclick="go('s-home')">← Retour</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOBBY -->
+
+  <div id="s-lobby" class="sc">
+    <div class="card w100 mb12" style="max-width:440px">
+      <div class="tc mb12">
+        <div class="ttl">Salle d'attente 🎮</div>
+        <div class="sm muted mt4">Partage le code à tes amis</div>
+      </div>
+      <div class="codebox mb14">
+        <span class="codenum" id="l-code">----</span>
+        <div class="copyhint" onclick="copyCode()">📋 Toucher pour copier</div>
+      </div>
+      <div class="plist" id="l-players"></div>
+      <div class="sep"></div>
+      <div id="l-settings" class="xs muted tc mb10" style="line-height:1.9"></div>
+      <div id="l-status" class="tc sm muted mb10"></div>
+      <button class="btn bp w100" id="l-start" onclick="startGame()" style="display:none">🚀 Lancer la partie!</button>
+      <div id="l-hint" class="tc xs muted mt8" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- GAME -->
+
+  <div id="s-game" class="sc" style="align-items:center">
+    <div class="gtop">
+      <div class="turninfo"><div class="turnlbl">Au tour de</div><div class="turnnm" id="g-turn">—</div></div>
+      <div id="g-round" class="rpill">Round 1/20</div>
+    </div>
+    <div class="pwrap"><div class="ptrack"><div class="pbar" id="g-prog" style="width:0%"></div></div></div>
+
+```
+<!-- Phase: Choisir -->
+<div id="ph-choose" class="qcard" style="display:none;max-width:520px">
+  <div class="tc" style="padding:6px 0 18px">
+    <div style="font-size:42px;margin-bottom:10px">🎲</div>
+    <div id="ch-who" style="font-family:'Bebas Neue';font-size:22px;letter-spacing:1px;color:var(--pk)">C'EST TON TOUR!</div>
+    <div class="sm muted mt4 mb18">Choisis ta destinée...</div>
+    <div class="cgrid" id="ch-btns">
+      <button class="btn bact" onclick="pickType('action')">
+        <span class="cico">💪</span><span class="clbl">ACTION</span><span class="csub">Ose le faire</span>
+      </button>
+      <button class="btn bvrt" onclick="pickType('verite')">
+        <span class="cico">💬</span><span class="clbl">VÉRITÉ</span><span class="csub">Dis tout</span>
+      </button>
+    </div>
+    <div id="ch-wait" style="display:none">
+      <div class="sm muted">En attente du choix...</div>
+      <div class="dots mt8"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Phase: Répondre -->
+<div id="ph-ans" class="qcard" style="display:none;max-width:520px">
+  <div class="catc" id="a-cat">—</div>
+  <div class="qtag" id="a-tag">—</div>
+  <div class="qtxt" id="a-q">—</div>
+  <div id="a-mine">
+    <textarea class="ta" id="a-inp" placeholder="Tape ta réponse... (ou décris ce que tu vas faire)"></textarea>
+    <button class="btn bp mt8" onclick="submitAns()">Envoyer ✅</button>
+  </div>
+  <div id="a-wait" style="display:none">
+    <div class="sm muted tc" id="a-waittxt">En attente des autres...</div>
+    <div class="dots mt8"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+</div>
+
+<!-- Phase: Révélation -->
+<div id="ph-rev" class="rwrap" style="display:none">
+  <div class="tc mb14">
+    <div style="font-size:34px">📖</div>
+    <div style="font-family:'Bebas Neue';font-size:30px;letter-spacing:2px;color:var(--go)">Révélation!</div>
+    <div class="xs muted mt4" id="r-recap" style="font-style:italic;padding:0 6px"></div>
+  </div>
+  <div id="r-cards"></div>
+  <button class="btn bp mt14 w100" id="r-next" onclick="nextRound()" style="display:none">Prochaine question →</button>
+  <div class="tc xs muted mt8" id="r-wait" style="display:none">L'hôte passe à la suite...</div>
+</div>
+```
+
+  </div>
+
+  <!-- END -->
+
+  <div id="s-end" class="sc">
+    <div style="font-size:70px;text-align:center;margin-bottom:8px">🏆</div>
+    <div class="huge" style="font-size:54px;margin-bottom:4px">GG!</div>
+    <div class="muted tc mb20" id="e-sub">Partie terminée!</div>
+    <div class="col w100 mb22" id="e-pod"></div>
+    <div class="row" style="flex-wrap:wrap;justify-content:center;gap:10px">
+      <button class="btn bp" style="width:auto;padding:13px 26px" onclick="goHome()">🔄 Rejouer</button>
+      <button class="btn bg_" style="width:auto;padding:13px 26px" onclick="goHome()">🏠 Accueil</button>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- Firebase — chargé en arrière-plan, invisible -->
+
+<script>
+// Charge Firebase de façon silencieuse
+(function(){
+  var s1=document.createElement('script');
+  s1.src='https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js';
+  s1.async=true;
+  var s2=document.createElement('script');
+  s2.src='https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js';
+  s2.async=true;
+  s1.onload=function(){
+    document.head.appendChild(s2);
+    s2.onload=initFB;
+  };
+  document.head.appendChild(s1);
+})();
+
+var db=null,fbReady=false;
+
+function initFB(){
+  try{
+    var cfg={
+      apiKey:"AIzaSyAWW-rnF1dqdCc5kCuI-d9dTSMrBJCrSb0",
+      authDomain:"test-a5848.firebaseapp.com",
+      databaseURL:"https://test-a5848-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId:"test-a5848",
+      storageBucket:"test-a5848.firebasestorage.app",
+      messagingSenderId:"704331097703",
+      appId:"1:704331097703:web:664a8e24613d38ed2316c2"
+    };
+    if(!firebase.apps.length) firebase.initializeApp(cfg);
+    db=firebase.database();
+    fbReady=true;
+  }catch(e){
+    console.warn('FB init error',e);
+  }
+}
+
+// ─────────────────────────────────────────
+// 500+ QUESTIONS
+// ─────────────────────────────────────────
+var Q={
+classique:{
+action:[
+"Fais 15 pompes devant tout le monde maintenant.",
+"Imite la personne de ton choix pendant 1 minute. Les autres devinent qui.",
+"Chante le refrain d'une chanson à tue-tête.",
+"Envoie un message bizarre au dernier contact de tes SMS.",
+"Fais une danse ridicule pendant 30 secondes sans t'arrêter.",
+"Mange une cuillère de sauce piquante sans grimace.",
+"Imite un animal pendant 2 min — les autres devinent lequel.",
+"Fais le tour de la pièce à quatre pattes en aboyant.",
+"Parle avec un accent exagéré pour les 3 prochains rounds.",
+"Fais semblant d'être un robot pendant 2 minutes complètes.",
+"Bois un verre d'eau sans utiliser tes mains.",
+"Reste sur une seule jambe pendant tout le prochain round.",
+"Appelle un parent et dis-lui que tu es éperdument amoureux d'un inconnu.",
+"Fais la planche le plus longtemps possible.",
+"Fais une photo la plus embarrassante possible et garde-la 5 min en story.",
+"Chante 'Joyeux Anniversaire' à voix haute dans un message vocal à quelqu'un.",
+"Parle uniquement en chuchotant pendant 5 minutes complètes.",
+"Fais une roue — ou essaie pendant 30 secondes.",
+"Dis un compliment sincère et détaillé à chaque joueur.",
+"Lèche ton coude pendant 10 secondes (c'est presque impossible!).",
+"Fais semblant de faire un discours de mariage pour la personne à ta gauche.",
+"Mange quelque chose bizarre du frigo sans regarder ce que c'est.",
+"Fais le moonwalk de Michael Jackson à travers la pièce.",
+"Mets tes vêtements à l'envers pour le reste de la partie.",
+"Crie 'Je vous aime!' par la fenêtre ou dans le couloir.",
+"Fais 20 sauts étoile en comptant à voix haute.",
+"Imite ton acteur/actrice préféré(e) pendant 1 minute.",
+"Dessine un portrait de la personne à ta droite en 60 secondes.",
+"Envoie un GIF romantique à la dernière personne de tes contacts WhatsApp.",
+"Fais une push-up avec quelqu'un assis sur ton dos.",
+"Chante uniquement en opéra pendant les 5 prochaines minutes.",
+"Invente et raconte une histoire de 1 minute avec les objets devant toi.",
+"Fais semblant d'être un mannequin sur un podium de défilé pendant 30s.",
+"Fais le plus beau sourire possible et tiens-le 20 secondes.",
+"Dis le plus de nombres entre 1 et 100 en 20 secondes.",
+],
+verite:[
+"Quelle est la chose la plus stupide que tu aies jamais faite?",
+"Quel est le mensonge que tu répètes le plus souvent dans ta vie?",
+"Quelle est ta pire peur secrète que tu n'avoues jamais?",
+"Qui appellerais-tu en premier lors d'une urgence grave?",
+"Quel est le truc le plus inutile que tu aies acheté?",
+"Quelle mauvaise habitude as-tu mais n'assumes jamais en public?",
+"Si tu pouvais effacer une période de ta vie, laquelle ce serait?",
+"Quelle est la chose la plus bizarre que tu manges en secret?",
+"Quel est ton pire souvenir de scolarité?",
+"Quelle célébrité tu détestes mais suis quand même sur les réseaux?",
+"Quel mensonge as-tu dit à tes parents et ils y ont totalement cru?",
+"Décris ton crush de collège sans donner son nom.",
+"Quelle est la chose la plus creepy que tu aies faite par curiosité?",
+"Quelle chanson tu écoutes en boucle mais n'assumes jamais?",
+"Quel film honte tu adores mais ne recommandes jamais?",
+"Quelle chose enfantine fais-tu encore aujourd'hui?",
+"Quelle est ta recherche Google la plus honteuse cette semaine?",
+"Quelle peur irrationnelle as-tu encore aujourd'hui?",
+"Si tu pouvais lire les pensées d'une personne ici, qui choisirais-tu?",
+"Quel est le pire conseil que tu aies jamais donné?",
+"Combien de fois vérifies-tu vraiment tes réseaux sociaux par jour?",
+"Quelle est ta superstition secrète?",
+"As-tu déjà menti sur ton CV? Sur quoi?",
+"Quelle est la chose la plus chère que tu aies perdue ou cassée?",
+"De quoi es-tu le plus jaloux(se) chez quelqu'un dans cette pièce?",
+"Quel est ton plus grand regret de l'année passée?",
+"Si tu étais invisible 24h, que ferais-tu en premier?",
+"Quel est le pire truc que tu aies fait à un ex?",
+"Quelle est la chose dont tu t'es vantó(e) mais que tu n'avais pas vraiment faite?",
+"Si ta vie était un film, quel genre serait-il?",
+"As-tu déjà pris quelque chose qui ne t'appartenait pas? Quoi?",
+"Quel est le truc le plus nul que tu aies fait pour impressionner quelqu'un?",
+"Quelle émotion caches-tu le mieux aux autres?",
+"Si tu devais choisir une seule personne ici pour un road trip, qui?",
+"As-tu déjà espionné quelqu'un? Dans quel but?",
+"Quelle est la promesse que tu n'as jamais tenue?",
+"Quel est le secret que tu gardes depuis le plus longtemps?",
+"Quelle est la chose la plus irresponsable que tu aies faite?",
+"As-tu déjà pleuré devant un film ou une série? Lequel?",
+"Si tu n'avais peur de rien, que ferais-tu dès demain?",
+],
+},
+coquin:{
+action:[
+"Fais un massage des épaules à la personne de ton choix pendant 1 minute.",
+"Dis à chaque joueur ce qui te plaît physiquement chez lui/elle.",
+"Fais un catwalk ultra séducteur à travers la pièce.",
+"Siffle la personne de ton choix comme si elle passait dans la rue.",
+"Pose ta main sur le genou de quelqu'un pendant 30s sans rire.",
+"Écris un mot sur le dos de quelqu'un avec ton doigt — il doit deviner.",
+"Fais ton regard le plus séducteur à la personne en face.",
+"Chuchote quelque chose de mystérieux à l'oreille de quelqu'un.",
+"Mime une scène romantique de film sans un seul mot.",
+"Lis un passage de roman à l'eau de rose avec une intonation dramatique.",
+"Fais la liste de tes 3 crush secrets (sans noms) à voix haute.",
+"Décris ton type idéal en détail — les autres devinent si c'est quelqu'un ici.",
+"Donne un surnom flatteur à chaque joueur et justifie-le.",
+"Fais semblant de séduire une chaise pendant 20 secondes.",
+"Chante une chanson romantique à la personne de ton choix.",
+"Écris un texto de drague pour la personne à ta gauche — lis-le à voix haute.",
+"Fais le regard le plus « ne résiste pas » que tu connaisses.",
+"Décris ta tenue de rêve pour une soirée romantique.",
+"Fais un calin à la personne de ton choix pendant 10 secondes.",
+"Cligne des yeux langoureusement à chaque joueur tour à tour.",
+"Mime embrasser quelqu'un avec passion pendant 5 secondes.",
+"Complimente chaque joueur sur quelque chose que tu n'as jamais dit.",
+"Dis à voix haute le type de personne qui te rend complètement fou/folle.",
+"Fais semblant d'être un(e) mannequin dans un clip romantique.",
+"Raconte ton meilleur souvenir romantique en 30 secondes.",
+],
+verite:[
+"Quel est ton plus grand fantasme que tu n'as jamais osé avouer?",
+"À quelle célébrité as-tu déjà pensé de façon romantique?",
+"Quelle est la chose la plus séduisante qu'on t'ait jamais dite?",
+"As-tu déjà embrassé quelqu'un dans une soirée et regretté le lendemain?",
+"Quelle est la première chose que tu remarques chez quelqu'un qui t'attire?",
+"As-tu déjà envoyé un message flirt au mauvais destinataire?",
+"Quelle est ta meilleure ou pire expérience de baiser?",
+"As-tu déjà eu le béguin pour un(e) ami(e) de quelqu'un ici?",
+"Quelle est la chose la plus audacieuse que tu aies faite pour plaire à quelqu'un?",
+"As-tu déjà stalké l'ex d'un(e) ex sur les réseaux?",
+"Quelle est la déclaration la plus cringe qu'on t'ait faite?",
+"As-tu déjà embrassé quelqu'un juste parce que tu t'ennuyais?",
+"Quelle est la chose la plus risquée que tu aies faite par attirance?",
+"As-tu déjà joué l'indifférent(e) alors que tu étais totalement accro?",
+"Quel est le lieu le plus original où tu as embrassé quelqu'un?",
+"As-tu déjà eu des sentiments pour ton/ta meilleur(e) ami(e)?",
+"Quelle phrase de drague a marché sur toi contre toute attente?",
+"Dans cette partie, qui inviterais-tu en date si tout le monde était célibataire?",
+"As-tu déjà fait semblant d'aimer quelque chose pour impressionner un crush?",
+"Décris ton type idéal en 3 qualités physiques et 3 qualités de caractère.",
+"As-tu déjà été jaloux(se) de façon totalement irrationnelle? Raconte.",
+"Quel est le plus long temps sans embrasser quelqu'un que tu aies connu?",
+"As-tu déjà flirté sans le vouloir vraiment? Avec qui?",
+"Quel est ton endroit romantique de rêve pour un premier rendez-vous?",
+"As-tu déjà menti sur ton statut amoureux pour éviter quelqu'un?",
+"Quel est le message le plus embarrassant que tu aies envoyé?",
+"As-tu déjà eu un crush sur quelqu'un bien plus vieux/jeune que toi?",
+"Quelle est la chose qui t'attire chez quelqu'un que tu n'assumes pas?",
+"Comment réagis-tu quand quelqu'un te drague?",
+"As-tu déjà fait semblant de ne pas voir quelqu'un pour l'éviter?",
+"Quelle est ta façon préférée de flirter?",
+"Décris le baiser parfait selon toi.",
+"As-tu déjà embrassé quelqu'un sur un coup de tête? Comment c'était?",
+"Quel est le truc le plus romantique qu'on t'ait jamais fait?",
+"Quelle est la chanson qui te met toujours dans l'ambiance romantique?",
+],
+},
+couple:{
+action:[
+"Dis à ton/ta partenaire 3 choses que tu adores chez lui/elle devant tout le monde.",
+"Fais un câlin à ton/ta partenaire pendant 60 secondes sans bouger.",
+"Raconte votre première rencontre avec le maximum de détails.",
+"Dessine le visage de ton/ta partenaire de mémoire en 30 secondes.",
+"Chante une chanson qui représente votre relation.",
+"Fais une photo couple maintenant, la plus belle possible.",
+"Danse un slow avec ton/ta partenaire sans musique.",
+"Dis à ton/ta partenaire quel est ton moment préféré ensemble.",
+"Écris 'Je t'aime' sur la main de ton/ta partenaire avec ton doigt.",
+"Décris ton/ta partenaire en 3 super-pouvoirs qu'il/elle possède.",
+"Imite comment ton/ta partenaire réagit quand il/elle est de mauvaise humeur.",
+"Fais semblant d'être ton/ta partenaire pendant 1 minute.",
+"Récite les paroles d'une chanson d'amour à ton/ta partenaire.",
+"Fais la liste des 5 raisons pour lesquelles tu l'aimes.",
+"Prends la main de ton/ta partenaire et ne la lâche pas pendant le prochain round.",
+"Dis à voix haute ce que ton/ta partenaire fait qui te fait encore sourire.",
+"Fais une promesse sincère à ton/ta partenaire devant tout le monde.",
+"Ferme les yeux et dis 3 détails physiques de ton/ta partenaire de mémoire.",
+],
+verite:[
+"Quel défaut de ton/ta partenaire as-tu mis le plus de temps à accepter?",
+"Quel est le souvenir que tu chéris le plus dans votre relation?",
+"Y a-t-il quelque chose que tu n'as jamais osé dire à ton/ta partenaire?",
+"Quelle est la dispute la plus ridicule que vous ayez jamais eue?",
+"Qu'est-ce qui t'a fait réaliser que tu étais vraiment amoureux(se)?",
+"Si tu devais décrire votre relation avec un film, lequel?",
+"As-tu déjà douté de votre relation? Dans quel contexte?",
+"Quelle chose fait ton/ta partenaire que tu n'exprimes pas assez aimer?",
+"Si vous deviez voyager ensemble, quelle serait votre destination de rêve?",
+"Quel est le sacrifice le plus grand que tu aies fait pour ton/ta partenaire?",
+"Comment imagines-tu votre vie dans 10 ans ensemble?",
+"Quelle est la chose la plus folle que tu ferais pour cette relation?",
+"Qu'est-ce que ton/ta partenaire fait qui te fait encore sourire après tout ce temps?",
+"As-tu déjà été jaloux(se) sans raison valable? De qui?",
+"Si tu pouvais changer une chose dans votre relation, laquelle?",
+"Quelle qualité de ton/ta partenaire voudrais-tu avoir toi-même?",
+"Quel est le moment où tu as été le plus fier(fière) de ton/ta partenaire?",
+"As-tu déjà eu peur de perdre ton/ta partenaire? Pourquoi?",
+"Quel truc innocent ton/ta partenaire fait et qui te rend dingue (en bien)?",
+"Si tu devais décrire ton amour en une seule chanson, laquelle?",
+"Quel est le cadeau le plus significatif que vous vous soyez offert?",
+"Comment gères-tu les désaccords avec ton/ta partenaire?",
+"Quelle est la première chose que tu as remarquée chez ton/ta partenaire?",
+"Qu'est-ce que ton/ta partenaire t'a appris sur toi-même?",
+"Quel est le truc que tu fais uniquement grâce à lui/elle?",
+"Si ton/ta partenaire partait 1 mois, qu'est-ce qui te manquerait le plus?",
+"Quelle est la chose que tu n'avais jamais faite avant lui/elle?",
+"Si tu devais recommencer votre histoire, changerais-tu quelque chose?",
+"Qu'est-ce que tu aurais voulu savoir sur ton/ta partenaire dès le début?",
+"Quelle est ta façon préférée de passer du temps avec lui/elle?",
+],
+},
+hot:{
+action:[
+"Décris en détail ta tenue de rêve pour une soirée très intime.",
+"Montre les derniers emojis que tu as envoyés et explique le contexte.",
+"Lis tes 3 derniers messages envoyés à voix haute sans les relire avant.",
+"Fais la liste de tes 3 fantasmes les plus fous à voix haute.",
+"Dis à voix haute ce que tu ferais si vous étiez seuls ce soir.",
+"Envoie un message très flatteur et suggestif à ton/ta partenaire maintenant.",
+"Décris ton expérience la plus mémorable en 30 secondes.",
+"Dis à chaque joueur ce que tu trouves sensuellement attirant chez lui/elle.",
+"Lis un extrait d'un livre ou film romantique avec ta meilleure voix séductrice.",
+"Décris en 3 mots ce que tu attends d'une nuit parfaite.",
+"Montre une photo de ton crush actuel ou passé sans expliquer qui c'est.",
+"Fais la liste des 5 choses qui t'attirent immédiatement chez quelqu'un.",
+"Décris le slow le plus torride que tu aies jamais dansé.",
+"Fais une déclaration passionnée à la personne de ton choix.",
+],
+verite:[
+"Quelle est ta position préférée? Tu sais de quoi on parle 😏",
+"Où est l'endroit le plus insolite où tu as vécu quelque chose d'intime?",
+"Quelle est ta limite absolue dans une relation intime?",
+"As-tu déjà eu un rêve érotique impliquant quelqu'un d'inattendu?",
+"Combien de partenaires romantiques as-tu eu? Sois honnête.",
+"Quelle est la chose la plus osée que tu aies faite avec un(e) partenaire?",
+"Qu'est-ce qui te met le plus dans l'ambiance rapidement?",
+"As-tu déjà envoyé des photos compromettantes? Ça s'est bien passé?",
+"Quel est ton plus grand tabou que tu n'as jamais brisé?",
+"As-tu déjà simulé pour ne pas blesser quelqu'un?",
+"Quelle est la chose la plus importante pour toi dans une relation physique?",
+"As-tu déjà eu une aventure d'un soir? Ça valait le coup?",
+"Quel est le compliment le plus chaud qu'on t'ait jamais fait?",
+"Quelle est ta vision de la nuit parfaite, avec tous les détails?",
+"As-tu déjà utilisé une app de rencontres? Raconte l'expérience.",
+"Quelle est la chose qui t'attire instantanément chez quelqu'un?",
+"Quel est le moment le plus gênant que tu aies vécu dans un contexte intime?",
+"As-tu déjà eu des sentiments pour quelqu'un pendant une relation exclusive?",
+"Quelle est ton opinion sur les relations ouvertes?",
+"Qu'est-ce que tu adores faire mais n'avoues presque jamais?",
+"Quelle est la chose la plus courageuse que tu aies faite pour séduire quelqu'un?",
+"Décris en 3 mots l'expérience intime idéale.",
+"As-tu déjà flirté avec quelqu'un sans t'en rendre compte? Comment tu l'as réalisé?",
+"Quelle est la chose la plus romantique que tu aies faite spontanément?",
+"As-tu déjà embrassé quelqu'un de façon totalement inattendue?",
+"Quel est le lieu le plus risqué où tu as fait quelque chose d'osé?",
+"Si tu devais choisir une seule qualité physique chez un partenaire, laquelle?",
+"Qu'est-ce que tu ne ferais jamais en couple mais que tu as déjà envisagé?",
+"Quelle est la chose dont tu as besoin dans une relation intime que peu de gens comprennent?",
+"Raconte ta première fois que tu as vraiment ressenti une attirance intense pour quelqu'un.",
+"As-tu déjà joué à un jeu de séduction? Comment c'était?",
+"Quelle est ta façon préférée de montrer ton attirance?",
+"Quel est le fantasme le plus commun que tu as mais n'assumes pas?",
+"Si tu pouvais vivre une nuit dans un film romantique, lequel tu choisirais?",
+"Qu'est-ce que tu aimes que ton/ta partenaire fasse et que tu ne lui as jamais dit?",
+],
+}
+};
+
+// ─────────────────────────────────────────
+// ÉTAT GLOBAL
+// ─────────────────────────────────────────
+var COLORS=['#ff2d78','#7c3aed','#06d6e0','#fbbf24','#10b981','#f97316','#f472b6','#60a5fa','#a78bfa','#34d399','#fb7185','#38bdf8'];
+var AVATARS=['😎','🤩','🥳','😈','🦊','🐱','🦁','🐉','👾','🤖','🎭','🌟'];
+
+var myId=sessionStorage.getItem('aov_uid')||Math.random().toString(36).slice(2,11);
+sessionStorage.setItem('aov_uid',myId);
+var myName='',myColor='',myAvatar='',roomCode='',roomRef=null,gbListener=null,selCats=['classique','coquin'];
+
+// ─────────────────────────────────────────
+// THÈME
+// ─────────────────────────────────────────
+var isLight=localStorage.getItem('aov_th')==='light';
+function applyTheme(l){
+  isLight=l;
+  document.documentElement.classList.toggle('light',l);
+  document.getElementById('ticon').textContent=l?'☀️':'🌙';
+  document.getElementById('tlbl').textContent=l?'Clair':'Sombre';
+  localStorage.setItem('aov_th',l?'light':'dark');
+  rebuildOrbs();
+}
+function toggleTheme(){applyTheme(!isLight);}
+applyTheme(isLight);
+
+// ─────────────────────────────────────────
+// CANVAS BACKGROUND
+// ─────────────────────────────────────────
+var cv=document.getElementById('bgc'),cx=cv.getContext('2d'),W,H,orbs=[];
+function resizeCv(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
+function mkOrb(){
+  var cols=isLight?['#d8156828','#5b21b622','#0369a118']:['#ff2d7820','#7c3aed20','#06d6e015'];
+  return{x:Math.random()*W,y:Math.random()*H,r:200+Math.random()*300,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,color:cols[Math.floor(Math.random()*cols.length)]};
+}
+function rebuildOrbs(){orbs=Array.from({length:4},mkOrb);}
+resizeCv();window.addEventListener('resize',function(){resizeCv();rebuildOrbs();});rebuildOrbs();
+function drawBg(){
+  cx.clearRect(0,0,W,H);
+  cx.fillStyle=isLight?'#f2f2fa':'#070710';
+  cx.fillRect(0,0,W,H);
+  orbs.forEach(function(o){
+    var g=cx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r);
+    g.addColorStop(0,o.color);g.addColorStop(1,'transparent');
+    cx.fillStyle=g;cx.beginPath();cx.arc(o.x,o.y,o.r,0,Math.PI*2);cx.fill();
+    o.x+=o.vx;o.y+=o.vy;
+    if(o.x<-o.r||o.x>W+o.r)o.vx*=-1;
+    if(o.y<-o.r||o.y>H+o.r)o.vy*=-1;
+  });
+  requestAnimationFrame(drawBg);
+}
+drawBg();
+
+// ─────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────
+function go(id){
+  document.querySelectorAll('.sc').forEach(function(s){s.classList.remove('on');});
+  document.getElementById(id).classList.add('on');
+  var showBack=['s-create','s-join','s-lobby','s-game'].includes(id);
+  document.getElementById('back-btn').classList.toggle('vis',showBack);
+}
+function goBack(){leaveRoom();go('s-home');}
+function goHome(){leaveRoom();go('s-home');}
+
+function toggleCat(el){
+  var cat=el.dataset.cat;
+  var ons=document.querySelectorAll('.ctile.on');
+  if(el.classList.contains('on')){
+    if(ons.length<=1){toast('⚠️ Garde au moins une catégorie!','er');return;}
+    el.classList.remove('on');selCats=selCats.filter(function(c){return c!==cat;});
+  }else{
+    el.classList.add('on');selCats.push(cat);
+  }
+}
+
+// ─────────────────────────────────────────
+// OUTILS
+// ─────────────────────────────────────────
+function genCode(){
+  var c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  return Array.from({length:4},function(){return c[Math.floor(Math.random()*c.length)];}).join('');
+}
+function shuffle(a){
+  var b=[...a];
+  for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}
+  return b;
+}
+function buildPool(cats){
+  var pool=[];
+  cats.forEach(function(cat){
+    var q=Q[cat];if(!q)return;
+    (q.action||[]).forEach(function(t,i){pool.push({id:cat+'_a_'+i,cat:cat,type:'action',text:t});});
+    (q.verite||[]).forEach(function(t,i){pool.push({id:cat+'_v_'+i,cat:cat,type:'verite',text:t});});
+  });
+  return shuffle(pool);
+}
+
+var toastT;
+function toast(msg,type,dur){
+  dur=dur||2800;
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.className='up '+(type||'if');
+  clearTimeout(toastT);
+  toastT=setTimeout(function(){t.classList.remove('up');},dur);
+}
+function shk(id){
+  var el=document.getElementById(id);if(!el)return;
+  el.classList.add('shk');setTimeout(function(){el.classList.remove('shk');},400);
+}
+function copyCode(){
+  if(navigator.clipboard){navigator.clipboard.writeText(roomCode).then(function(){toast('📋 Code copié!','ok');}).catch(function(){toast('Code: '+roomCode,'if');});}
+  else{toast('Code: '+roomCode,'if');}
+}
+function spawnConfetti(){
+  var cols=['#ff2d78','#7c3aed','#06d6e0','#fbbf24','#10b981','#f97316'];
+  for(var i=0;i<70;i++){
+    var el=document.createElement('div');
+    var sz=6+Math.random()*10;
+    el.style.cssText='position:fixed;left:'+Math.random()*100+'vw;top:-20px;width:'+sz+'px;height:'+sz+'px;background:'+cols[Math.floor(Math.random()*cols.length)]+';border-radius:'+(Math.random()>.5?'50%':'2px')+';animation:confY '+(2+Math.random()*3)+'s '+(Math.random()*1.5)+'s linear forwards;z-index:9999;pointer-events:none;';
+    document.body.appendChild(el);
+    setTimeout(function(){el.remove();},5500);
+  }
+}
+
+// ─────────────────────────────────────────
+// ATTENDRE FIREBASE PRÊT
+// ─────────────────────────────────────────
+function whenFBReady(fn){
+  if(fbReady){fn();}else{setTimeout(function(){whenFBReady(fn);},100);}
+}
+
+// ─────────────────────────────────────────
+// CRÉER UNE PARTIE
+// ─────────────────────────────────────────
+function createGame(){
+  var name=document.getElementById('c-name').value.trim();
+  if(!name){toast('Entre ton prénom!','er');shk('c-name');return;}
+  if(selCats.length===0){toast('Choisis au moins une catégorie!','er');return;}
+  var rounds=parseInt(document.getElementById('c-rounds').value);
+  var code=genCode();
+  var idx=Math.floor(Math.random()*COLORS.length);
+  myName=name;myColor=COLORS[idx];myAvatar=AVATARS[idx];roomCode=code;
+  var pool=buildPool(selCats);
+  var gameData={
+    code:code,hostId:myId,status:'lobby',
+    categories:selCats,totalRounds:rounds,
+    currentRound:0,turnPlayerId:null,chosenType:null,currentQuestion:null,
+    answers:{},usedIds:[],questionPool:pool.slice(0,300),
+    players:{},createdAt:Date.now(),updatedAt:Date.now()
+  };
+  gameData.players[myId]={id:myId,name:name,color:myColor,avatar:myAvatar,joinedAt:Date.now()};
+  whenFBReady(function(){
+    db.ref('games/'+code).set(gameData).then(function(){
+      attachListener(code);
+      go('s-lobby');
+      renderLobby(gameData);
+      toast('Partie créée! Code: '+code,'ok');
+    }).catch(function(e){
+      toast('Erreur: '+e.message,'er');
+      console.error(e);
+    });
+  });
+}
+
+// ─────────────────────────────────────────
+// REJOINDRE
+// ─────────────────────────────────────────
+function joinGame(){
+  var name=document.getElementById('j-name').value.trim();
+  var code=document.getElementById('j-code').value.trim().toUpperCase();
+  if(!name){toast('Entre ton prénom!','er');shk('j-name');return;}
+  if(code.length!==4){toast('Code à 4 caractères!','er');shk('j-code');return;}
+  whenFBReady(function(){
+    db.ref('games/'+code).get().then(function(snap){
+      if(!snap.exists()){toast('❌ Code invalide! Vérifie bien.','er');shk('j-code');return;}
+      var game=snap.val();
+      if(game.status!=='lobby'){toast('⚠️ La partie a déjà commencé!','er');return;}
+      var cnt=Object.keys(game.players||{}).length;
+      if(cnt>=8){toast('Partie pleine (max 8 joueurs)!','er');return;}
+      var idx=cnt%COLORS.length;
+      myName=name;myColor=COLORS[idx];myAvatar=AVATARS[idx];roomCode=code;
+      db.ref('games/'+code+'/players/'+myId).set({id:myId,name:name,color:myColor,avatar:myAvatar,joinedAt:Date.now()});
+      db.ref('games/'+code+'/updatedAt').set(Date.now());
+      attachListener(code);
+      go('s-lobby');
+      toast('Bienvenue '+name+'! 🎊','ok');
+    }).catch(function(e){toast('Erreur de connexion: '+e.message,'er');});
+  });
+}
+
+// ─────────────────────────────────────────
+// LISTENER FIREBASE
+// ─────────────────────────────────────────
+function attachListener(code){
+  if(gbListener){gbListener();}
+  roomRef=db.ref('games/'+code);
+  roomRef.on('value',function(snap){
+    if(!snap.exists())return;
+    var game=snap.val();
+    var cur=document.querySelector('.sc.on');
+    var curId=cur?cur.id:'';
+    if(game.status==='lobby'){
+      renderLobby(game);
+    }else if(['choosing','answering','reveal'].includes(game.status)){
+      if(curId==='s-lobby')go('s-game');
+      renderGame(game);
+    }else if(game.status==='end'){
+      renderEnd(game);
+    }
+  });
+  gbListener=function(){roomRef.off('value');};
+}
+function leaveRoom(){
+  if(gbListener){gbListener();gbListener=null;}
+  roomRef=null;roomCode='';
+}
+
+// ─────────────────────────────────────────
+// LOBBY
+// ─────────────────────────────────────────
+function renderLobby(game){
+  document.getElementById('l-code').textContent=game.code;
+  var players=Object.values(game.players||{}).sort(function(a,b){return a.joinedAt-b.joinedAt;});
+  var listEl=document.getElementById('l-players');
+  listEl.innerHTML='';
+  players.forEach(function(p){
+    var isHost=p.id===game.hostId,isMe=p.id===myId;
+    var div=document.createElement('div');
+    div.className='prow'+(isMe?' me':'');
+    div.innerHTML='<div class="pav" style="background:'+p.color+'22;color:'+p.color+'">'+p.avatar+'</div>'
+      +'<div class="pnm">'+p.name+(isMe?' <span style="color:var(--mu);font-weight:400;font-size:11px">(moi)</span>':'')+'</div>'
+      +(isHost?'<span class="pbdg bhost">👑 Hôte</span>':(isMe?'<span class="pbdg bme">Moi</span>':'<span class="pbdg bread">✓</span>'));
+    listEl.appendChild(div);
+  });
+  if(players.length<8){var e=document.createElement('div');e.className='empty-slot';e.innerHTML='<span style="font-size:17px">➕</span> En attente de joueurs...';listEl.appendChild(e);}
+  var catN={classique:'😂 Classique',coquin:'😏 Coquin',couple:'💑 Couple',hot:'🔥 Hot'};
+  document.getElementById('l-settings').innerHTML='<strong>'+game.totalRounds+' rounds</strong> &nbsp;•&nbsp; '+(game.categories||[]).map(function(c){return catN[c]||c;}).join(' &nbsp;•&nbsp; ');
+  var cnt=players.length;
+  document.getElementById('l-status').textContent=cnt<2?cnt+'/2 joueurs minimum':cnt+' joueur'+(cnt>1?'s':'')+' connecté'+(cnt>1?'s':'');
+  var isHost=game.hostId===myId,canStart=cnt>=2;
+  document.getElementById('l-start').style.display=(isHost&&canStart)?'flex':'none';
+  var hint=document.getElementById('l-hint');
+  if(isHost&&!canStart){hint.style.display='block';hint.textContent='Il faut au moins 2 joueurs!';}
+  else if(!isHost){hint.style.display='block';hint.textContent=canStart?"L'hôte va lancer...":'En attente d\'un autre joueur...';}
+  else{hint.style.display='none';}
+}
+
+// ─────────────────────────────────────────
+// LANCER
+// ─────────────────────────────────────────
+function startGame(){
+  whenFBReady(function(){
+    db.ref('games/'+roomCode).get().then(function(snap){
+      var game=snap.val();if(!game)return;
+      var ids=Object.keys(game.players).sort(function(a,b){return game.players[a].joinedAt-game.players[b].joinedAt;});
+      if(ids.length<2){toast('Il faut au moins 2 joueurs!','er');return;}
+      db.ref('games/'+roomCode).update({status:'choosing',currentRound:1,turnPlayerId:ids[0],chosenType:null,currentQuestion:null,answers:{},updatedAt:Date.now()});
+    });
+  });
+}
+
+// ─────────────────────────────────────────
+// RENDU JEU
+// ─────────────────────────────────────────
+function renderGame(game){
+  var isMyTurn=game.turnPlayerId===myId;
+  var tp=game.players&&game.players[game.turnPlayerId];
+  var isHost=game.hostId===myId;
+  document.getElementById('g-turn').textContent=isMyTurn?'TON TOUR!':(tp?tp.name:'?');
+  document.getElementById('g-round').textContent='Round '+game.currentRound+'/'+game.totalRounds;
+  var pct=((game.currentRound-1)/game.totalRounds)*100;
+  document.getElementById('g-prog').style.width=pct+'%';
+  // cacher tout
+  ['ph-choose','ph-ans','ph-rev'].forEach(function(id){document.getElementById(id).style.display='none';});
+
+  if(game.status==='choosing'){
+    document.getElementById('ph-choose').style.display='block';
+    var btns=document.getElementById('ch-btns'),wait=document.getElementById('ch-wait'),who=document.getElementById('ch-who');
+    if(isMyTurn){who.textContent="C'EST TON TOUR!";btns.style.display='grid';wait.style.display='none';}
+    else{who.textContent=(tp?tp.name:'?')+' CHOISIT...';btns.style.display='none';wait.style.display='block';}
+
+  }else if(game.status==='answering'){
+    document.getElementById('ph-ans').style.display='block';
+    var q=game.currentQuestion;if(!q)return;
+    document.getElementById('a-cat').textContent=q.cat;
+    var tag=document.getElementById('a-tag'),card=document.getElementById('ph-ans');
+    card.className='qcard '+(q.type==='action'?'ta_':'tv')+(q.cat==='hot'?' hot':'');
+    tag.className='qtag '+(q.type==='action'?'tga':'tgv');
+    tag.innerHTML=q.type==='action'?'💪 ACTION':'💬 VÉRITÉ';
+    document.getElementById('a-q').textContent=q.text;
+    var allP=Object.keys(game.players||{});
+    var myDone=!!(game.answers&&game.answers[myId]);
+    var mine=document.getElementById('a-mine'),waitDiv=document.getElementById('a-wait'),wtxt=document.getElementById('a-waittxt');
+    if(myDone){
+      mine.style.display='none';waitDiv.style.display='block';
+      var waiting=allP.filter(function(pid){return !(game.answers&&game.answers[pid]);}).map(function(pid){return game.players[pid]?game.players[pid].name:'?';});
+      wtxt.textContent=waiting.length?'En attente de: '+waiting.join(', '):'Tous ont répondu!';
+    }else{
+      mine.style.display='block';waitDiv.style.display='none';
+      document.getElementById('a-inp').value='';
+    }
+
+  }else if(game.status==='reveal'){
+    document.getElementById('ph-ans').style.display='block';
+    document.getElementById('ph-rev').style.display='block';
+    var q2=game.currentQuestion;
+    if(q2){
+      document.getElementById('a-cat').textContent=q2.cat;
+      var tag2=document.getElementById('a-tag'),c2=document.getElementById('ph-ans');
+      c2.className='qcard '+(q2.type==='action'?'ta_':'tv')+(q2.cat==='hot'?' hot':'');
+      tag2.className='qtag '+(q2.type==='action'?'tga':'tgv');
+      tag2.innerHTML=q2.type==='action'?'💪 ACTION':'💬 VÉRITÉ';
+      document.getElementById('a-q').textContent=q2.text;
+      document.getElementById('r-recap').textContent='"'+q2.text+'"';
+    }
+    document.getElementById('a-mine').style.display='none';
+    document.getElementById('a-wait').style.display='none';
+    var rc=document.getElementById('r-cards');rc.innerHTML='';
+    Object.entries(game.answers||{}).forEach(function(entry){
+      var pid=entry[0],ans=entry[1];
+      var p=game.players&&game.players[pid];if(!p)return;
+      var div=document.createElement('div');div.className='rans';div.style.borderLeftColor=p.color;
+      div.innerHTML='<div class="rwho" style="color:'+p.color+'">'+p.avatar+' '+p.name+(pid===myId?' <span style="color:var(--mu);font-weight:400;font-size:11px">(moi)</span>':'')+'</div>'
+        +'<div class="'+(ans?'rtxt':'remp')+'">'+( ans||'Pas de réponse')+'</div>';
+      rc.appendChild(div);
+    });
+    document.getElementById('r-next').style.display=isHost?'flex':'none';
+    document.getElementById('r-wait').style.display=isHost?'none':'block';
+  }
+}
+
+// ─────────────────────────────────────────
+// ACTIONS JOUEUR
+// ─────────────────────────────────────────
+function pickType(type){
+  whenFBReady(function(){
+    db.ref('games/'+roomCode).get().then(function(snap){
+      var game=snap.val();
+      if(!game||game.turnPlayerId!==myId)return;
+      var used=game.usedIds||[];
+      var pool=game.questionPool||[];
+      var avail=pool.filter(function(q){return q.type===type&&!used.includes(q.id);});
+      var candidates=avail.length>0?avail:pool.filter(function(q){return q.type===type;});
+      if(candidates.length===0){toast('Plus de questions de ce type!','er');return;}
+      var q=candidates[Math.floor(Math.random()*candidates.length)];
+      var newUsed=used.concat([q.id]).slice(-200);
+      db.ref('games/'+roomCode).update({status:'answering',chosenType:type,currentQuestion:q,answers:{},usedIds:newUsed,updatedAt:Date.now()});
+    });
+  });
+}
+
+function submitAns(){
+  var answer=document.getElementById('a-inp').value.trim();
+  if(!answer){toast('Écris une réponse!','er');shk('a-inp');return;}
+  whenFBReady(function(){
+    db.ref('games/'+roomCode).get().then(function(snap){
+      var game=snap.val();if(!game)return;
+      var updates={};
+      updates['answers/'+myId]=answer;
+      updates['updatedAt']=Date.now();
+      var newAnswers=Object.assign({},game.answers||{});
+      newAnswers[myId]=answer;
+      var allP=Object.keys(game.players||{});
+      var allDone=allP.every(function(pid){return newAnswers[pid];});
+      if(allDone)updates['status']='reveal';
+      db.ref('games/'+roomCode).update(updates);
+    });
+  });
+}
+
+function nextRound(){
+  whenFBReady(function(){
+    db.ref('games/'+roomCode).get().then(function(snap){
+      var game=snap.val();
+      if(!game||game.hostId!==myId)return;
+      if(game.currentRound>=game.totalRounds){
+        db.ref('games/'+roomCode).update({status:'end',updatedAt:Date.now()});return;
+      }
+      var ids=Object.keys(game.players).sort(function(a,b){return game.players[a].joinedAt-game.players[b].joinedAt;});
+      var curIdx=ids.indexOf(game.turnPlayerId);
+      var nextId=ids[(curIdx+1)%ids.length];
+      db.ref('games/'+roomCode).update({status:'choosing',currentRound:game.currentRound+1,turnPlayerId:nextId,chosenType:null,currentQuestion:null,answers:{},updatedAt:Date.now()});
+    });
+  });
+}
+
+// ─────────────────────────────────────────
+// FIN DE PARTIE
+// ─────────────────────────────────────────
+function renderEnd(game){
+  go('s-end');
+  spawnConfetti();
+  var players=Object.values(game.players||{}).sort(function(a,b){return(b.score||0)-(a.score||0);});
+  document.getElementById('e-sub').textContent=game.totalRounds+' rounds terminés — GG à tous! 🎉';
+  var medals=['🥇','🥈','🥉'];
+  var pod=document.getElementById('e-pod');pod.innerHTML='';
+  players.forEach(function(p,i){
+    var div=document.createElement('div');div.className='podrow';
+    div.innerHTML='<div class="podrank">'+(medals[i]||'#'+(i+1))+'</div>'
+      +'<div class="pav" style="background:'+p.color+'22;color:'+p.color+'">'+p.avatar+'</div>'
+      +'<div style="font-weight:700;flex:1">'+p.name+(p.id===myId?' (moi)':'')+'</div>'
+      +'<div class="xs muted mono">'+game.totalRounds+' rounds</div>';
+    pod.appendChild(div);
+  });
+}
+</script>
+
+</body>
+</html>
